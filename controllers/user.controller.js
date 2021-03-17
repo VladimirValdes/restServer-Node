@@ -32,6 +32,19 @@ const usuariosGet = async( req, res = response ) => {
     });
 }
 
+
+usuariosGetById = async( req, res = response ) => {
+
+    const { id } = req.params;
+
+    const usuario = await Usuario.findById( id );
+
+    res.json({
+        usuario,
+        msg: 'Desde usuario por id'
+    })
+}
+
 const usuariosPost = async( req, res = response ) => {
 
 

@@ -16,6 +16,12 @@ const route = Router();
 
 route.get('/', usuariosGet);
 
+route.get('/:id', [
+	check('id', 'El id no es valido').isMongoId(),
+	check('id').custom( usuarioExistePorId ),
+	validarCampos
+], usuariosGetById)
+
 route.post('/', [
 	check('nombre', 'El nombre es obligatorio').not().isEmpty(),
 	check('password', 'El password debe ser mas de 6 letras').isLength({ min: 6 }),
@@ -37,7 +43,6 @@ route.delete('/:id', [
 	check('id', 'El id no es valido').isMongoId(),
 	check('id').custom( usuarioExistePorId ),
 	validarCampos
-
 ], usuariosDelete);
 
 module.exports = route;
