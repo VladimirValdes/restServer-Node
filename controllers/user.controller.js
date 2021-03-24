@@ -41,7 +41,6 @@ usuariosGetById = async( req, res = response ) => {
 
     res.json({
         usuario,
-        msg: 'Desde usuario por id'
     })
 }
 
