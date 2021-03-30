@@ -143,7 +143,40 @@ const buscarProductXCat = async( req, res = response ) => {
 }
 
 
+const buscarAllCategoriasProd = async( req, res = response ) => {
+
+
+    const categorias = await Categoria.find({ estado: true });
+
+    const productosXCategoria = [];
+
+        for (const categoria of categorias) {
+
+            const productos = await Producto.find({
+                $or: [{ categoria: categoria._id }],
+                $and: [{ estado: true }]
+            });
+    
+            const catg = {
+                nombre: categoria.nombre,
+                productos
+            }
+    
+            productosXCategoria.push(catg);
+        }
+        
+      
+    
+
+    return res.json({
+        categorias: productosXCategoria
+    });
+
+}
+
+
 module.exports = {
     buscar,
-    buscarProductXCat
+    buscarProductXCat,
+    buscarAllCategoriasProd
 }
